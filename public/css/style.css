@@ -90,3 +90,77 @@ td{
     border-radius: 999px;
     font-weight: 600;
 }
+
+.edit-card {
+    max-width: 720px;
+    margin: 0 auto;
+    border-radius: 24px;
+}
+
+.edit-card .section-title {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 28px;
+}
+
+.edit-card .form-label {
+    font-weight: 600;
+    color: #101044;
+    margin-bottom: 8px;
+}
+
+.edit-card .form-control,
+.edit-card .form-select {
+    border-radius: 14px;
+    padding: 13px 16px;
+    border: 1px solid #cbd5e1;
+}
+
+.edit-card .form-control:focus,
+.edit-card .form-select:focus {
+    border-color: #5b5cf0;
+    box-shadow: 0 0 0 4px rgba(91, 92, 240, 0.15);
+}
+
+.edit-card .btn {
+    border-radius: 14px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.edit-card .btn-secondary {
+    background-color: #eef2f7;
+    color: #334155;
+    border: none;
+}
+
+.edit-card .btn-secondary:hover {
+    background-color: #dbe3ee;
+    color: #1e293b;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons .btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-delete {
+    background: transparent;
+    color: #111827;
+}

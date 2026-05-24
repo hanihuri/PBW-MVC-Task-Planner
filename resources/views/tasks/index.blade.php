@@ -22,6 +22,33 @@
         </p>
     </div>
 
+    <div class="card shadow-sm border-0 main-card mb-4">
+        <div class="card-body p-4">
+
+            <h4 class="section-title mb-4">
+                Tambah Mata Kuliah
+            </h4>
+
+            <form action="/categories" method="POST">
+                @csrf
+
+                <div class="d-flex gap-2">
+                    <input type="text"
+                        name="mata_kuliah"
+                        class="form-control"
+                        placeholder="Masukkan nama mata kuliah"
+                        required>
+
+                    <button type="submit"
+                            class="btn btn-custom text-white">
+                        Tambah
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
     <div class="card shadow-sm border-0 main-card mb-5">
         <div class="card-body p-4">
 
@@ -37,9 +64,13 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Mata Kuliah</label>
 
-                        <input type="text"
-                               name="mata_kuliah"
-                               class="form-control">
+                        <select name="category_id" class="form-select">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->mata_kuliah }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -100,16 +131,14 @@
 
                 <tbody>
 
-                    @foreach ($tasks as $task)
+                    @foreach ($belumTasks as $task)
 
-                        @if ($task->status == 'belum')
-
-                        <tr>
-                            <td>{{ $task->mata_kuliah }}</td>
+                        <tr> 
+                            <td>{{ $task->category->mata_kuliah ?? '-' }}</td>
 
                             <td>{{ $task->judul_tugas }}</td>
 
-                            <td>{{ $task->deadline }}</td>
+                            <td>{{ \Carbon\Carbon::parse($task->deadline)->format('d-m-Y') }}</td>
 
                             <td>
                                 <span class="badge bg-warning text-dark">
@@ -118,14 +147,27 @@
                             </td>
 
                             <td>
-                                <a href="/tasks/selesai/{{ $task->id }}"
-                                class="btn btn-success btn-sm">
-                                ✅
-                                </a>
+                                <div class="action-buttons">
+
+                                    <a href="/tasks/edit/{{ $task->id }}"
+                                    class="btn btn-edit text-white">
+                                    ✏️
+                                    </a>
+
+                                    <a href="/tasks/selesai/{{ $task->id }}"
+                                    class="btn btn-done text-white">
+                                    ✅
+                                    </a>
+
+                                    <a href="/tasks/delete/{{ $task->id }}"
+                                    class="btn btn-delete text-red"
+                                    onclick="return confirm('Yakin ingin menghapus tugas ini?')">
+                                    🗑️
+                                    </a>
+
+                                </div>
                             </td>
                         </tr>
-
-                        @endif
 
                     @endforeach
 
@@ -157,16 +199,14 @@
 
                 <tbody>
 
-                    @foreach ($tasks as $task)
-
-                        @if ($task->status == 'selesai')
+                    @foreach ($selesaiTasks as $task)
 
                         <tr>
-                            <td>{{ $task->mata_kuliah }}</td>
+                            <td>{{ $task->category->mata_kuliah ?? '-' }}</td>
 
                             <td>{{ $task->judul_tugas }}</td>
 
-                            <td>{{ $task->deadline }}</td>
+                            <td>{{ \Carbon\Carbon::parse($task->deadline)->format('d-m-Y') }}</td>
 
                             <td>
                                 <span class="badge bg-success">
@@ -174,8 +214,6 @@
                                 </span>
                             </td>
                         </tr>
-
-                        @endif
 
                     @endforeach
 
